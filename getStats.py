@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 import sys, json, requests, time
 import pandas as pd
 import matplotlib.pyplot as plt
