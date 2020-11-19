@@ -18,7 +18,7 @@ LOCAL_JSON_FILE = 'covid-19-cases.json'
 TODAY = pd.to_datetime("today")
 currentDir = os.getcwd()
 
-reportDir = os.path.join(currentDir, TODAY.strftime("%Y%m%d"))
+reportDir = os.path.join(currentDir,"reports",  TODAY.strftime("%Y%m%d"))
 os.makedirs(reportDir, exist_ok = True)
 
 print(reportDir)
