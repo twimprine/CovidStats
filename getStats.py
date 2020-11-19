@@ -71,7 +71,7 @@ for index, row in states_df.iterrows():
     state.insert(state.shape[-1],'SMA_28_positiveIncrease', state.loc[:,'positiveIncrease'].rolling(window=28).mean())
     state.insert(state.shape[-1],'SMA_90_positiveIncrease', state.loc[:,'positiveIncrease'].rolling(window=90).mean())
 
-    labelText = row['name'] + "Daily Increase in Covid Deaths - " + time.strftime("%Y%m%d_%H:%M")
+    labelText = row['name'] + " Daily Increase in Covid Deaths - " + time.strftime("%Y%m%d_%H:%M")
     plt.plot_date(state['fmtDate'], state['deathIncrease'], linestyle='solid', color= 'black', label=labelText)
     plt.plot_date(state['fmtDate'], state['SMA_3_deathIncrease'], color='red', linestyle='solid', label='3 day rolling average')
     plt.plot_date(state['fmtDate'], state['SMA_7_deathIncrease'], color='magenta', linestyle='solid', label='7 day rolling average')
@@ -86,10 +86,8 @@ for index, row in states_df.iterrows():
     plt.close()
 
     fig = plt.figure(figsize=(100,40))
-    labelText = row['name'] + "Daily Increase in Covid Positive Cases - " + time.strftime("%Y%m%d_%H:%M")
-    plt.plot_date(state['fmtDate'], positiveIncrease, linestyle='solid', label=labelText)
-
-    plt.plot_date(state['fmtDate'], state['positiveIncrease'], color='black', linestyle='solid', label='state Daily Increase in Covid Positive Cases')
+    labelText = row['name'] + " Daily Increase in Covid Positive Cases - " + time.strftime("%Y%m%d_%H:%M")
+    plt.plot_date(state['fmtDate'], state['positiveIncrease'], color='black', linestyle='solid', label=labelText)
     plt.plot_date(state['fmtDate'], state['SMA_3_positiveIncrease'], color='red', linestyle='solid', label='3 day rolling average')
     plt.plot_date(state['fmtDate'], state['SMA_7_positiveIncrease'], color='magenta', linestyle='solid', label='7 day rolling average')
     plt.plot_date(state['fmtDate'], state['SMA_28_positiveIncrease'], color='orange', linestyle='solid', label='28 day rolling average')
