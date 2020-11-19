@@ -1,2 +1,2 @@
 .gitigonore
-crontab.log
+*.log
