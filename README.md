@@ -14,6 +14,7 @@ assistance in both the project and learning.
 
 ## TODO
 
-1 - I would like to add the cases per 100000 graphs 
-
-2 - Create an index HTML page for static hosting on S3
+| Status | Description |
+| --- | --- |
+|Complete |  I would like to add the cases per 100000 graphs |
+|Idea | Create an index HTML page for static hosting on S3 |
