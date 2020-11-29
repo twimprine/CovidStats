@@ -28,7 +28,8 @@ print(reportDir)
 
 # This is the GitHub URL for the Covid Tracking Project
 data_loc = ('https://api.covidtracking.com/v1/states/daily.json')
-states_url = ('https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json')
+states_url = ('https://raw.githubusercontent.com/twimprine/Datasets/main/states.json')
+#states_url = ('https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json')
 
 states_response = requests.get(states_url)
 states_data = states_response.json()
