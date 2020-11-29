@@ -73,11 +73,8 @@ for index, row in states_df.iterrows():
     
     print(row['name'],row['abbreviation'],row['population']['estimates']['2019'], divisor)
     
-    fig = plt.figure(figsize=(100,40))
-
-
     
-    fig = plt.figure(figsize=(100,40))
+
     if divisor > 0 :
         
         state.insert(state.shape[-1], 'SMA_7_CasesPerPopulation', state.loc[:,'positiveIncrease'].rolling(window=7).mean() / divisor)
@@ -86,20 +83,29 @@ for index, row in states_df.iterrows():
         state.insert(state.shape[-1], 'SMA_7_DeathsPerPopulation', state.loc[:,'deathIncrease'].rolling(window=7).mean() / divisor)
         state.insert(state.shape[-1], 'SMA_28_DeathsPerPopulation', state.loc[:,'deathIncrease'].rolling(window=28).mean() / divisor)
         
+        fig = plt.figure(figsize=(100,40))
         labelText_cases = row['name'] + " Cases per " + str(divisor) + " people"
-        labelText_deaths = row['name'] + " Deaths per " + str(divisor) + " people"
-
         plt.plot_date(state['fmtDate'], (state['positiveIncrease'] / divisor), color='blue', linestyle='solid', label=labelText_cases)
         plt.plot_date(state['fmtDate'], (state['SMA_7_CasesPerPopulation']), color='deepskyblue', linestyle='solid', label='7 day rolling average')
         plt.plot_date(state['fmtDate'], (state['SMA_28_CasesPerPopulation']), color='fuchsia', linestyle='solid', label='28 day rolling average')
         
+        plt.grid(b=True, which='both', axis='both')
+        plt.legend(loc='upper left')
+        fileName = row['name'].replace(" ","_") + '_CovidCasesPopulationStats' + time.strftime("%Y%m%d") + '.pdf'
+        savePath = os.path.join(reportDir, fileName)
+        plt.savefig(savePath, dpi=75 )
+        #plt.show()
+        plt.close()
+
+        fig = plt.figure(figsize=(100,40))
+        labelText_deaths = row['name'] + " Deaths per " + str(divisor) + " people"
         plt.plot_date(state['fmtDate'], (state['deathIncrease'] / divisor), color='red', linestyle='solid', label=labelText_deaths)
         plt.plot_date(state['fmtDate'], (state['SMA_7_DeathsPerPopulation']), color='orange', linestyle='solid', label='7 day rolling average')
         plt.plot_date(state['fmtDate'], (state['SMA_28_DeathsPerPopulation']), color='brown', linestyle='solid', label='28 day rolling average')
         
         plt.grid(b=True, which='both', axis='both')
         plt.legend(loc='upper left')
-        fileName = row['name'].replace(" ","_") + '_CovidPopulationStats' + time.strftime("%Y%m%d") + '.pdf'
+        fileName = row['name'].replace(" ","_") + '_CovidDeathPopulationStats' + time.strftime("%Y%m%d") + '.pdf'
         savePath = os.path.join(reportDir, fileName)
         plt.savefig(savePath, dpi=75 )
         #plt.show()
@@ -111,6 +117,7 @@ for index, row in states_df.iterrows():
     state.insert(state.shape[-1],'SMA_28_positiveIncrease', state.loc[:,'positiveIncrease'].rolling(window=28).mean())
     state.insert(state.shape[-1],'SMA_90_positiveIncrease', state.loc[:,'positiveIncrease'].rolling(window=90).mean())
     
+    fig = plt.figure(figsize=(100,40))
     labelText = row['name'] + " Daily Increase in Covid Positive Cases - " + time.strftime("%Y%m%d_%H:%M")
     plt.plot_date(state['fmtDate'], state['positiveIncrease'], color='black', linestyle='solid', label=labelText)
     plt.plot_date(state['fmtDate'], state['SMA_3_positiveIncrease'], color='red', linestyle='solid', label='3 day rolling average')
@@ -131,6 +138,7 @@ for index, row in states_df.iterrows():
     state.insert(state.shape[-1],'SMA_28_deathIncrease', state.loc[:,'deathIncrease'].rolling(window=28).mean())
     state.insert(state.shape[-1],'SMA_90_deathIncrease', state.loc[:,'deathIncrease'].rolling(window=90).mean())
     
+    fig = plt.figure(figsize=(100,40))
     labelText = row['name'] + " Daily Increase in Covid Deaths - " + time.strftime("%Y%m%d_%H:%M")
     plt.plot_date(state['fmtDate'], state['deathIncrease'], linestyle='solid', color= 'black', label=labelText)
     plt.plot_date(state['fmtDate'], state['SMA_3_deathIncrease'], color='red', linestyle='solid', label='3 day rolling average')
