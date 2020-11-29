@@ -97,11 +97,7 @@ for index, row in states_df.iterrows():
         #plt.show()
         plt.close()
 
-<<<<<<< HEAD
         fig = plt.figure(figsize=(100,40))
-=======
-
->>>>>>> master
         labelText_deaths = row['name'] + " Deaths per " + str(divisor) + " people"
         plt.plot_date(state['fmtDate'], (state['deathIncrease'] / divisor), color='red', linestyle='solid', label=labelText_deaths)
         plt.plot_date(state['fmtDate'], (state['SMA_7_DeathsPerPopulation']), color='orange', linestyle='solid', label='7 day rolling average')
