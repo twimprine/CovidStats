@@ -73,6 +73,7 @@ for index, row in states_df.iterrows():
     
     print(row['name'],row['abbreviation'],row['population']['estimates']['2019'], divisor)
     
+
     
 
     if divisor > 0 :
@@ -91,6 +92,7 @@ for index, row in states_df.iterrows():
         
         plt.grid(b=True, which='both', axis='both')
         plt.legend(loc='upper left')
+        plt.tick_params(labelleft=True, labelright=True, labeltop=True, labelbottom=True)
         fileName = row['name'].replace(" ","_") + '_CovidCasesPopulationStats' + time.strftime("%Y%m%d") + '.pdf'
         savePath = os.path.join(reportDir, fileName)
         plt.savefig(savePath, dpi=75 )
