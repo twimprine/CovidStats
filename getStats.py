@@ -95,7 +95,7 @@ for index, row in states_df.iterrows():
         
         fig = plt.figure(figsize=(100,40))
         labelText_cases = row['name'] + " Cases per " + str(divisor) + " people"
-        plt.plot_date(loop_df['fmtDate'], (loop_df['positiveIncrease'] / divisor), color='blue', linestyle='solid', label=labelText_cases)
+        plt.plot_date(loop_df['fmtDate'], (loop_df['positiveIncreasePopulation'] / divisor), color='blue', linestyle='solid', label=labelText_cases)
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_7_CasesPerPopulation']), color='deepskyblue', linestyle='solid', label='7 day rolling average')
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_28_CasesPerPopulation']), color='fuchsia', linestyle='solid', label='28 day rolling average')
         
@@ -110,7 +110,7 @@ for index, row in states_df.iterrows():
         
         fig = plt.figure(figsize=(100,40))
         labelText_deaths = row['name'] + " Deaths per " + str(divisor) + " people"
-        plt.plot_date(loop_df['fmtDate'], (loop_df['deathIncrease'] / divisor), color='red', linestyle='solid', label=labelText_deaths)
+        plt.plot_date(loop_df['fmtDate'], (loop_df['deathIncreasePopulation'] / divisor), color='red', linestyle='solid', label=labelText_deaths)
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_7_DeathsPerPopulation']), color='orange', linestyle='solid', label='7 day rolling average')
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_28_DeathsPerPopulation']), color='brown', linestyle='solid', label='28 day rolling average')
         
@@ -166,3 +166,23 @@ for index, row in states_df.iterrows():
     
     report_df = report_df.append(loop_df, ignore_index=True, sort=False)
     loop_df = pd.DataFrame(data={})
+
+fig = plt.figure(figsize=(100,40))
+labelText = "Top 5 States Rate of Transmission - " + time.strftime("%Y%m%d_%H:%M")
+colors = ['red','darkorange','orange','gold','yellow']
+counter = 0
+
+for index, row in report_df.sort_values(by=['fmtDate','positiveIncreasePopulation'], ascending=False).head(5).iterrows():
+    #print(row['state'])
+    local_df = report_df.loc[report_df['state'] == row['state']]
+    #local_df = report_df.loc([row['state']]))
+    loopLabel = row['state'] + " 7 day population infection moving average"
+    plt.plot_date(local_df['fmtDate'], (local_df['SMA_7_CasesPerPopulation']), color=colors[counter], linestyle='solid', label=loopLabel)
+    counter += 1
+plt.grid(b=True, which='both', axis='both')
+plt.legend(loc='upper left')
+fileName = 'CovidTop5States' + time.strftime("%Y%m%d") + '.pdf'
+savePath = os.path.join(reportDir, fileName)
+plt.savefig(savePath, dpi=75 )
+#plt.show()
+plt.close()
