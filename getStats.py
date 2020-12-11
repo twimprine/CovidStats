@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys, json, requests, time
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -95,7 +97,7 @@ for index, row in states_df.iterrows():
         
         fig = plt.figure(figsize=(100,40))
         labelText_cases = row['name'] + " Cases per " + str(divisor) + " people"
-        plt.plot_date(loop_df['fmtDate'], (loop_df['positiveIncreasePopulation'] / divisor), color='blue', linestyle='solid', label=labelText_cases)
+        plt.plot_date(loop_df['fmtDate'], (loop_df['positiveIncreasePopulation']), color='blue', linestyle='solid', label=labelText_cases)
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_7_CasesPerPopulation']), color='deepskyblue', linestyle='solid', label='7 day rolling average')
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_28_CasesPerPopulation']), color='fuchsia', linestyle='solid', label='28 day rolling average')
         
@@ -110,7 +112,7 @@ for index, row in states_df.iterrows():
         
         fig = plt.figure(figsize=(100,40))
         labelText_deaths = row['name'] + " Deaths per " + str(divisor) + " people"
-        plt.plot_date(loop_df['fmtDate'], (loop_df['deathIncreasePopulation'] / divisor), color='red', linestyle='solid', label=labelText_deaths)
+        plt.plot_date(loop_df['fmtDate'], (loop_df['deathIncreasePopulation']), color='red', linestyle='solid', label=labelText_deaths)
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_7_DeathsPerPopulation']), color='orange', linestyle='solid', label='7 day rolling average')
         plt.plot_date(loop_df['fmtDate'], (loop_df['SMA_28_DeathsPerPopulation']), color='brown', linestyle='solid', label='28 day rolling average')
         
@@ -169,7 +171,7 @@ for index, row in states_df.iterrows():
 
 fig = plt.figure(figsize=(100,40))
 labelText = "Top 5 States Rate of Transmission - " + time.strftime("%Y%m%d_%H:%M")
-colors = ['red','darkorange','orange','gold','yellow']
+colors = ['red','darkorange','darkslategray','purple','darkgreen']
 counter = 0
 
 for index, row in report_df.sort_values(by=['fmtDate','positiveIncreasePopulation'], ascending=False).head(5).iterrows():
