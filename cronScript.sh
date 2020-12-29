@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 DATE=`date +"%Y%m%d %H:%M"`
 cd $HOME/Repositories/CovidStats && $HOME/Repositories/CovidStats/getStats.py 
